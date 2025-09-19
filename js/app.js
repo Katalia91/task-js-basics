@@ -70,16 +70,24 @@ do {
     number1 = Number(prompt("Podaj liczbę nr 1"));
     number2 = Number(prompt("Podaj liczbę nr 2"));
 
-    if (action === "+") {
-      calc.add(number1, number2);
-    } else if (action === "-") {
-      calc.substract(number1, number2);
-    } else if (action === "*") {
-      calc.multiply(number1, number2);
-    } else if (action === "/") {
-      calc.divide(number1, number2);
-    } else if (action === "^") {
-      calc.power(number1, number2);
+    let result;
+    switch (action) {
+      case "+":
+        result = calc.add(number1, number2);
+        break;
+      case "-":
+        result = calc.substract(number1, number2);
+        break;
+      case "*":
+        result = calc.multiply(number1, number2);
+        break;
+      case "/":
+        result = calc.divide(number1, number2);
+        break;
+      case "^":
+        result = calc.power(number1, number2);
+        console.log(result);
+        break;
     }
   }
 } while (calc.isCorrectAction(action));
