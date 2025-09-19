@@ -11,14 +11,20 @@ Calculator.prototype.getHistoryAsString = function () {
   return this.history.join("\n"); // zwraca historię operacji, każdą operację np. 1 + 1 = 2, w nowej linii
 };
 
-Calculator.prototype.add = function (num1, num2) {
-  let str = "";
-  const a = Number(num1);
-  const b = Number(num2);
-  const result = a + b;
-  str = `${a} + ${b} = ${result}`;
+Calculator.prototype.performCalculation = function (
+  num1,
+  num2,
+  operator,
+  result
+) {
+  const str = `${num1} ${operator} ${num2} = ${result}`;
   this.history.push(str);
-  return this.str;
+  return result;
+};
+Calculator.prototype.add = function (num1, num2) {
+  const result = num1 + num2;
+  return this.performCalculation(num1, num2, "+", result);
+
   // 1. zamień wartości przekazane przez parametr na typ number
   // 2. sprawdź czy są one poprawne
   // 3. jeśli tak to wykonaj działanie i zapisz jego resultat
@@ -26,48 +32,28 @@ Calculator.prototype.add = function (num1, num2) {
 };
 
 Calculator.prototype.substract = function (num1, num2) {
-  let str = "";
-  const a = Number(num1);
-  const b = Number(num2);
-  const result = a - b;
-  str = `${a} - ${b} = ${result}`;
-  this.history.push(str);
-  return this.str;
+  const result = num1 - num2;
+  return this.performCalculation(num1, num2, "-", result);
 };
 
 Calculator.prototype.multiply = function (num1, num2) {
-  let str = "";
-  const a = Number(num1);
-  const b = Number(num2);
-  const result = a * b;
-  str = `${a} * ${b} = ${result}`;
-  this.history.push(str);
-  return this.str;
+  const result = num1 * num2;
+  return this.performCalculation(num1, num2, "*", result);
 };
 
 Calculator.prototype.divide = function (num1, num2) {
-  let str = "";
-  const a = Number(num1);
-  const b = Number(num2);
-  const result = a / b;
-  str = `${a} / ${b} = ${result}`;
-  this.history.push(str);
-  return this.str;
+  const result = num1 / num2;
+  return this.performCalculation(num1, num2, "/", result);
 };
 
 Calculator.prototype.power = function (num1, num2) {
-  let str = "";
-  const a = Number(num1);
-  const b = Number(num2);
   let counter = 0;
   let result = 1;
-  while (counter !== b) {
-    result = result * a;
+  while (counter !== num2) {
+    result = result * num1;
     counter = counter + 1;
   }
-  str = `${a} ^ ${b} = ${result}`;
-  this.history.push(str);
-  return this.str;
+  return this.performCalculation(num1, num2, "^", result);
 };
 
 const calc = new Calculator();
@@ -97,5 +83,3 @@ do {
     }
   }
 } while (calc.isCorrectAction(action));
-
-console.log(action);
